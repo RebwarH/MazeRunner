@@ -1,0 +1,66 @@
+<html>
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+
+<link href="css/main.css" type="text/css" rel="stylesheet" />
+
+<body>
+    <div class="placeholder" id="placeholder">
+
+    </div>
+    <div class="time"></div>
+    <div class="distance"></div>
+    <div class="fps">0</div>
+
+    <div id="debug" class="hide">
+        <div id="ctrl"></div>
+        <div id="sensor"></div>
+        <span id="ray">.</span>,<span id="angle">..</span>
+    </div>
+
+</body>
+<script src="Noc.engine.vnext.js"></script>
+<script src="maze/maze-generator.js"></script>
+<script src="entities/mazeMap.js"></script>
+<script src="entities/floor.js"></script>
+<script src="entities/minimap.js"></script>
+<script src="entities/compass-needle.js"></script>
+<script src="entities/compass-background.js"></script>
+<script src="entities/sky.js"></script>
+<script src="entities/start-screen.js"></script>
+<script src="entities/count-down.js"></script>
+<script src="entities/finish.js"></script>
+
+<script src="main.js"></script>
+
+<script src="libs/scriptProcessor.js"></script>
+<script src="libs/tinysid.js"></script>
+<script src="mapGen/map-gen.js"></script>
+
+<script>
+    var game;
+    window.onerror = function(){
+         game.stop();
+    }
+    
+    document.addEventListener("DOMContentLoaded", function(){
+        ScriptNodePlayer.createInstance(new SIDBackendAdapter(), "", [], true, function () { }, function () {
+            this.play();
+
+              game =  new MazeGame(MapGen,{
+            placeholder: document.querySelector("#placeholder"),
+            width: window.innerWidth, height:window.innerHeight
+            },this._analyzerNode
+        );
+        
+            
+        },function(){});
+
+        ScriptNodePlayer.getInstance().loadMusicFromURL("So-Phisticated_III_part_1.zip", {
+            basePath: "assets/"
+        },function (){},function(){});
+        
+      
+    });
+</script>
+
+</html>
